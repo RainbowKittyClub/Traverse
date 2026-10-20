@@ -4,8 +4,6 @@ import com.terraformersmc.traverse.block.TraverseBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.enchantment.Enchantment;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,9 +16,6 @@ public class TraverseBlockLootSubProvider extends FabricBlockLootSubProvider {
 
 	@Override
 	public void generate() {
-		//noinspection unused
-		HolderLookup.RegistryLookup<Enchantment> enchantmentRegistry = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-
 		// simple blocks
 		dropSelf(TraverseBlocks.BROWN_AUTUMNAL_SAPLING);
 		dropSelf(TraverseBlocks.FIR_BUTTON);
