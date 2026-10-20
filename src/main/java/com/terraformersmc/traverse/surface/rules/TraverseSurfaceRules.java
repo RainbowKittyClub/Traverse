@@ -30,8 +30,6 @@ public class TraverseSurfaceRules {
 		// Sandy surface rules
 		MaterialRule sandAndSandstone = sequence(ifTrue(UNDER_FLOOR,
 			block(Blocks.SAND)), block(Blocks.SANDSTONE));
-		MaterialRule redSandAndSandstone = sequence(ifTrue(UNDER_FLOOR,
-			block(Blocks.RED_SAND)), block(Blocks.RED_SANDSTONE));
 
 		// Biome-level rules
 		MaterialRule desertShrubland = ifTrue(MaterialRules.isBiome(biomeGetter, TraverseBiomes.DESERT_SHRUBLAND),
