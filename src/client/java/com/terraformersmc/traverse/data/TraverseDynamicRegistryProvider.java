@@ -23,7 +23,7 @@ public class TraverseDynamicRegistryProvider extends FabricDynamicRegistryProvid
 	}
 
 	public static void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, TraverseConfiguredFeatures::bootstrap);
+		registryBuilder.add(Registries.FEATURE, TraverseConfiguredFeatures::bootstrap);
 		registryBuilder.add(Registries.PLACED_FEATURE, TraversePlacedFeatures::bootstrap);
 		registryBuilder.add(Registries.BIOME, TraverseBiomes::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, TraverseVillagerTrades::bootstrap);
@@ -31,7 +31,7 @@ public class TraverseDynamicRegistryProvider extends FabricDynamicRegistryProvid
 
 	@Override
 	public void configure(HolderLookup.Provider registries, Entries entries) {
-		addAll(entries, registries.lookupOrThrow(Registries.CONFIGURED_FEATURE), Traverse.MOD_ID);
+		addAll(entries, registries.lookupOrThrow(Registries.FEATURE), Traverse.MOD_ID);
 		addAll(entries, registries.lookupOrThrow(Registries.PLACED_FEATURE), Traverse.MOD_ID);
 		addAll(entries, registries.lookupOrThrow(Registries.BIOME), Traverse.MOD_ID);
 		addAll(entries, registries.lookupOrThrow(Registries.VILLAGER_TRADE), Traverse.MOD_ID);

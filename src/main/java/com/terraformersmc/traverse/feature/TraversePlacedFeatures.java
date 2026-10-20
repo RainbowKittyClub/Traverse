@@ -3,8 +3,6 @@ package com.terraformersmc.traverse.feature;
 import com.terraformersmc.traverse.Traverse;
 import com.terraformersmc.traverse.block.TraverseBlocks;
 import com.terraformersmc.traverse.init.helpers.TraverseRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -16,7 +14,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 
 public class TraversePlacedFeatures {
@@ -53,8 +50,6 @@ public class TraversePlacedFeatures {
 	public static final ResourceKey<PlacedFeature> WOODLANDS_TREES = resourceKey("woodlands_trees");
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-		HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-
 		/* Shrubs */
 		TraverseRegistry.register(context, DESERT_EXTRA_CACTUS, VegetationFeatures.CACTUS, RarityFilter.onAverageOnceEvery(13), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 		TraverseRegistry.register(context, DESERT_SHRUBS, TraverseConfiguredFeatures.OAK_SHRUB, VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 1), Blocks.OAK_SAPLING));
@@ -75,13 +70,13 @@ public class TraversePlacedFeatures {
 		TraverseRegistry.register(context, CONIFEROUS_TREES, TraverseConfiguredFeatures.FIR_TREE, VegetationPlacements.treePlacement(PlacementUtils.countExtra(7, 0.1f, 1), TraverseBlocks.FIR_SAPLING));
 
 		/* Swamp Trees */
-		TraverseRegistry.register(context, LUSH_SWAMP_TREES, TraverseConfiguredFeatures.TALL_SWAMP_TREE, PlacementUtils.countExtra(2, 0.1f, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(3), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)));
+		TraverseRegistry.register(context, LUSH_SWAMP_TREES, TraverseConfiguredFeatures.TALL_SWAMP_TREE, PlacementUtils.countExtra(2, 0.1f, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(3), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING)));
 		TraverseRegistry.register(context, SWAMP_FUNGUS, TraverseConfiguredFeatures.SWAMP_FUNGUS, PlacementUtils.countExtra(0, 0.1f, 1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 		/* Lush Vegetation */
 		TraverseRegistry.register(context, FLATLANDS_GRASS, TraverseConfiguredFeatures.FLATLANDS_GRASS, Util.copyAndAdd(VegetationPlacements.worldSurfaceSquaredWithCount(96), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)));
-		TraverseRegistry.register(context, FLATLANDS_TREES, TreeFeatures.OAK_BEES_005, PlacementUtils.countExtra(0, 0.2F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome());
-		TraverseRegistry.register(context, LUSH_FLOWERS, TraverseConfiguredFeatures.LUSH_FLOWERS, RarityFilter.onAverageOnceEvery(32), CountPlacement.of(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), CountPlacement.of(64), RandomOffsetPlacement.ofTriangle(7, 3), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
+		TraverseRegistry.register(context, FLATLANDS_TREES, TreeFeatures.OAK_BEES_005, PlacementUtils.countExtra(0, 0.2F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING)), BiomeFilter.biome());
+		TraverseRegistry.register(context, LUSH_FLOWERS, TraverseConfiguredFeatures.LUSH_FLOWERS, RarityFilter.onAverageOnceEvery(32), CountPlacement.of(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), CountPlacement.of(64), OffsetPlacement.ofTriangle(7, 3), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
 
 
 		/* Woodlands */

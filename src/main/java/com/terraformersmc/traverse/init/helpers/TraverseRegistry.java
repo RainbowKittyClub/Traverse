@@ -5,7 +5,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -14,9 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import org.jspecify.annotations.NullMarked;
@@ -114,39 +111,15 @@ public class TraverseRegistry {
 	 */
 
 	/**
-	 * Registers a feature.
-	 *
-	 * @param name Name ({@link Identifier} path string) of the feature
-	 * @param feature {@link Feature} to be registered
-	 * @return Newly registered {@link Feature}
-	 */
-	public static <T extends Feature<FC>, FC extends FeatureConfiguration> T register(String name, T feature) {
-		return Registry.register(BuiltInRegistries.FEATURE, Identifier.fromNamespaceAndPath(Traverse.MOD_ID, name), feature);
-	}
-
-	/**
-	 * Creates and registers a configured feature (during datagen).  The configured feature will be created
-	 * with the provided feature config and registered to the provided registerable under the provided key.
-	 *
-	 * @param registerable A registration-capable abstraction of a registry of configured features
-	 * @param key {@link ResourceKey} of {@link ConfiguredFeature} being registered
-	 * @param feature {@link Feature} being configured
-	 * @param config {@link FeatureConfiguration} to apply to {@link Feature} being registered
-	 */
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> registerable, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {
-		FeatureUtils.register(registerable, key, feature, config);
-	}
-
-	/**
 	 * Creates and registers a placed feature (during datagen).  The placed feature will be created with
 	 * the provided placement modifiers and registered to the provided registerable under the provided key.
 	 *
 	 * @param registerable A registration-capable abstraction of a registry of placed features
 	 * @param key {@link ResourceKey} of {@link PlacedFeature} being registered
-	 * @param feature {@link ResourceKey} of {@link ConfiguredFeature} being placed
-	 * @param placementModifiers Any {@link PlacementModifier}(s) to apply to {@link ConfiguredFeature} being registered
+	 * @param feature {@link ResourceKey} of {@link Feature} being placed
+	 * @param placementModifiers Any {@link PlacementModifier}(s) to apply to {@link Feature} being registered
 	 */
-	public static void register(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> feature, PlacementModifier... placementModifiers) {
+	public static void register(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, ResourceKey<Feature> feature, PlacementModifier... placementModifiers) {
 		register(registerable, key, feature, List.of(placementModifiers));
 	}
 
@@ -156,12 +129,12 @@ public class TraverseRegistry {
 	 *
 	 * @param registerable A registration-capable abstraction of a registry of placed features
 	 * @param key {@link ResourceKey} of {@link PlacedFeature} being registered
-	 * @param feature {@link ResourceKey} of {@link ConfiguredFeature} being placed
-	 * @param placementModifiers {@link List} of {@link PlacementModifier}(s) to apply to {@link ConfiguredFeature} being registered
+	 * @param feature {@link ResourceKey} of {@link Feature} being placed
+	 * @param placementModifiers {@link List} of {@link PlacementModifier}(s) to apply to {@link Feature} being registered
 	 */
-	public static void register(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> feature, List<PlacementModifier> placementModifiers) {
+	public static void register(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, ResourceKey<Feature> feature, List<PlacementModifier> placementModifiers) {
 		PlacementUtils.register(registerable, key,
-			registerable.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(feature),
+			registerable.lookup(Registries.FEATURE).getOrThrow(feature),
 			placementModifiers);
 	}
 }
