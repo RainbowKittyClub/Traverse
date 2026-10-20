@@ -28,7 +28,6 @@
       "com.terraformersmc.traverse.data.TraverseDatagen"
     ]
   },
-  "accessWidener": "traverse.accesswidener",
   "mixins": [
     "mixins.traverse-common.json"
   ],
