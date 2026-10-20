@@ -4,8 +4,8 @@ import com.terraformersmc.terraform.leaves.api.block.ColoredParticleLeavesBlock;
 import com.terraformersmc.terraform.wood.api.block.PillarLogHelper;
 import com.terraformersmc.traverse.feature.TraverseConfiguredFeatures;
 import com.terraformersmc.traverse.init.helpers.TraverseRegistry;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.EntityType;
@@ -119,8 +119,8 @@ public class TraverseBlocks {
 	}
 
 	private static void addStrippables() {
-		StrippableBlockRegistry.register(FIR_LOG, STRIPPED_FIR_LOG);
-		StrippableBlockRegistry.register(FIR_WOOD, STRIPPED_FIR_WOOD);
+		BlockTransformerHelper.registerStripping(FIR_LOG, STRIPPED_FIR_LOG);
+		BlockTransformerHelper.registerStripping(FIR_WOOD, STRIPPED_FIR_WOOD);
 	}
 
 	public static Boolean canSpawnOnLeaves(BlockState state, BlockGetter world, BlockPos pos, EntityType<?> type) {
