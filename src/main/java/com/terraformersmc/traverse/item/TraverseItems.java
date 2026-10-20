@@ -2,6 +2,7 @@ package com.terraformersmc.traverse.item;
 
 import com.terraformersmc.traverse.block.TraverseBlocks;
 import com.terraformersmc.traverse.init.helpers.TraverseRegistry;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
@@ -33,7 +34,7 @@ public class TraverseItems {
 	public static BlockItem FIR_DOOR;
 	public static BlockItem FIR_SHELF;
 
-	public static SignItem FIR_SIGN;
+	public static StandingAndWallBlockItem FIR_SIGN;
 	public static HangingSignItem FIR_HANGING_SIGN;
 
 	public static void register() {
@@ -64,7 +65,7 @@ public class TraverseItems {
 		FIR_DOOR = TraverseRegistry.registerBlockItem("fir_door", TraverseBlocks.FIR_DOOR, new Item.Properties().cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE));
 		FIR_SHELF = TraverseRegistry.registerBlockItem("fir_shelf", TraverseBlocks.FIR_SHELF, new Item.Properties().cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_BLOCKS));
 
-		FIR_SIGN = TraverseRegistry.register("fir_sign", settings -> new SignItem(TraverseBlocks.FIR_SIGN, TraverseBlocks.FIR_WALL_SIGN, settings), new Item.Properties().cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE).stacksTo(16).useBlockDescriptionPrefix());
-		FIR_HANGING_SIGN = TraverseRegistry.register("fir_hanging_sign", settings -> new HangingSignItem(TraverseBlocks.FIR_HANGING_SIGN, TraverseBlocks.FIR_WALL_HANGING_SIGN, settings), new Item.Properties().cookingFuel(ContextIntProviders.COOKING_TIME_HANGING_SIGNS).stacksTo(16).useBlockDescriptionPrefix());
+		FIR_SIGN = TraverseRegistry.register("fir_sign", settings -> new StandingAndWallBlockItem(TraverseBlocks.FIR_SIGN, TraverseBlocks.FIR_WALL_SIGN, Direction.DOWN, settings), new Item.Properties().cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE).stacksTo(16).signText().useBlockDescriptionPrefix());
+		FIR_HANGING_SIGN = TraverseRegistry.register("fir_hanging_sign", settings -> new HangingSignItem(TraverseBlocks.FIR_HANGING_SIGN, TraverseBlocks.FIR_WALL_HANGING_SIGN, settings), new Item.Properties().cookingFuel(ContextIntProviders.COOKING_TIME_HANGING_SIGNS).stacksTo(16).signText().useBlockDescriptionPrefix());
 	}
 }
